@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A1202472984FA710063EB73 /* TryCatch.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A1202462984FA710063EB73 /* TryCatch.mm */; };
 		0A467C5428A62F5600BE0F28 /* mach_excServer.c in Sources */ = {isa = PBXBuildFile; fileRef = 0A467C5128A62F5600BE0F28 /* mach_excServer.c */; };
 		0A467C5828A6308A00BE0F28 /* ExceptionHandler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0A467C5728A6308A00BE0F28 /* ExceptionHandler.mm */; };
 		0A47F3AB29710A5000C94DF7 /* mach_excUser.c in Sources */ = {isa = PBXBuildFile; fileRef = 0A47F3AA29710A5000C94DF7 /* mach_excUser.c */; };
@@ -41,6 +42,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A1202452984FA710063EB73 /* TryCatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TryCatch.h; sourceTree = "<group>"; };
+		0A1202462984FA710063EB73 /* TryCatch.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TryCatch.mm; sourceTree = "<group>"; };
 		0A467C5128A62F5600BE0F28 /* mach_excServer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mach_excServer.c; sourceTree = "<group>"; };
 		0A467C5228A62F5600BE0F28 /* mach_exc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mach_exc.h; sourceTree = "<group>"; };
 		0A467C5628A6308A00BE0F28 /* ExceptionHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExceptionHandler.h; sourceTree = "<group>"; };
@@ -119,6 +122,8 @@
 			children = (
 				0A97F1C428A269F4004910F7 /* AppDelegate.h */,
 				0A97F1C528A269F4004910F7 /* AppDelegate.m */,
+				0A1202452984FA710063EB73 /* TryCatch.h */,
+				0A1202462984FA710063EB73 /* TryCatch.mm */,
 				0A467C5628A6308A00BE0F28 /* ExceptionHandler.h */,
 				0A467C5728A6308A00BE0F28 /* ExceptionHandler.mm */,
 				0A467C5228A62F5600BE0F28 /* mach_exc.h */,
@@ -307,6 +312,7 @@
 				0A97F1C628A269F4004910F7 /* AppDelegate.m in Sources */,
 				0A97F1D728A269F6004910F7 /* main.m in Sources */,
 				0A97F1C928A269F4004910F7 /* SceneDelegate.m in Sources */,
+				0A1202472984FA710063EB73 /* TryCatch.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

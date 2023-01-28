@@ -12,6 +12,7 @@
 #import <mach/host_priv.h>
 #include "KSLogger.h"
 #import "ExceptionHandler.h"
+
 @interface DDClass : NSObject
 
 @property (nonatomic, weak) DDClass *wobj;
@@ -124,6 +125,7 @@ static void handleSignal(int sigNum, siginfo_t* signalInfo, void* userContext)
 //    [obj performSelector:sel];
 
     // Override point for customization after application launch.
+    
     return YES;
 }
 
