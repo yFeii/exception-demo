@@ -38,7 +38,7 @@ extern "C" kern_return_t catch_mach_exception_raise_state_identity(
         mach_msg_type_number_t old_stateCnt, thread_state_t new_state, mach_msg_type_number_t *new_stateCnt)
 {
     NSLog(@"In catch_mach_exception_raise_state_identity");
-    return KERN_SUCCESS;
+    return KERN_FAILURE;
 }
 
 
@@ -48,7 +48,7 @@ extern "C" kern_return_t catch_mach_exception_raise(
         mach_exception_data_t exc_data, mach_msg_type_number_t exc_data_count)
 {
     NSLog(@"In catch_mach_exception_raise");
-    return KERN_SUCCESS;
+    return KERN_FAILURE;
 }
 
 
@@ -85,13 +85,12 @@ static void *exc_handler(void *ignored) {
             NSLog(@"mach_exc_server failde");
             return NULL;
         }
-        typedef struct {
-            mach_msg_header_t Head;
-            NDR_record_t NDR;
-            kern_return_t RetCode;
-        }Reply;
-        Reply *r = (Reply*)&reply_msg;
-        r->RetCode = KERN_FAILURE;
+//        typedef struct {
+//            mach_msg_header_t Head;
+//            NDR_record_t NDR;
+//            kern_return_t RetCode;
+//        }Reply;
+//        Reply *r = (Reply*)&reply_msg;
         kr = mach_msg(&reply_msg.hdr, MACH_SEND_MSG,
                       reply_msg.hdr.msgh_size, 0, MACH_PORT_NULL,
                 MACH_MSG_TIMEOUT_NONE, MACH_PORT_NULL);

@@ -21,10 +21,9 @@
 
 @implementation DDClass
 - (void)dealloc {
-    
 //    @try {
 //        self.wobj = self;
-//    } @catch (NSException *exception) {
+//    } @catch (...) {
 //        NSLog(@"catch exception");
 //    } @finally {
 //        NSLog(@"@finally");
@@ -110,6 +109,9 @@ static void handleSignal(int sigNum, siginfo_t* signalInfo, void* userContext)
     KSLOG_ERROR(@"Some error message");
     KSLOG_INFO(@"Some info message");
     KSLOG_DEBUG(@"Some debug message");
+    {
+        DDClass *cls = [DDClass new];
+    }
 //    KSCrashInstallationConsole* installation = [KSCrashInstallationConsole sharedInstance];
 //    [installation install];
     sleep(2);
