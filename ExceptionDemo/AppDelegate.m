@@ -12,7 +12,8 @@
 #import <mach/host_priv.h>
 #include "KSLogger.h"
 #import "ExceptionHandler.h"
-
+#import "TryCatch.h"
+#import <objc/objc-exception.h>
 @interface DDClass : NSObject
 
 @property (nonatomic, weak) DDClass *wobj;
@@ -21,14 +22,7 @@
 
 @implementation DDClass
 - (void)dealloc {
-//    @try {
-//        self.wobj = self;
-//    } @catch (...) {
-//        NSLog(@"catch exception");
-//    } @finally {
-//        NSLog(@"@finally");
-//
-//    }
+    self.wobj = self;
 }
 
 @end
@@ -104,30 +98,32 @@ static void handleSignal(int sigNum, siginfo_t* signalInfo, void* userContext)
 //    signal(SIGPIPE, mySignalHandler);
 }
 
+extern void abort_with_reason(uint32_t reason_namespace, uint64_t reason_code, const char *reason_string, uint64_t reason_flags);
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    KSLOG_ERROR(@"Some error message");
-    KSLOG_INFO(@"Some info message");
-    KSLOG_DEBUG(@"Some debug message");
-    {
-        DDClass *cls = [DDClass new];
-    }
-//    KSCrashInstallationConsole* installation = [KSCrashInstallationConsole sharedInstance];
-//    [installation install];
-    sleep(2);
-    [ExceptionHandler catchMACHExceptions];
+    KSCrashInstallationConsole* installation = [KSCrashInstallationConsole sharedInstance];
+    [installation install];
+//    [[KSCrash sharedInstance] setMonitoring:KSCrashMonitorTypeAsyncSafe];
 //    [self installSignal];
-    NSLog(@"before sigsegv");
-    int *a = NULL;
-    *a = 0;
-    NSLog(@"after sigsegv");
-    abort();
-//    NSObject *obj = [NSObject new];
-//    SEL sel = NSSelectorFromString(@"test");
-//    [obj performSelector:sel];
+//    [ExceptionHandler catchMACHExceptions];
+    sleep(2);//等待异常处理线程初始化
+    [TryCatch test];
 
-    // Override point for customization after application launch.
-    
+    {
+        abort();
+        //EXC_CRASH signalbrt
+//        DDClass *o = [DDClass new];
+        NSObject *obj = [NSObject new];
+        [obj performSelector:NSSelectorFromString(@"fake")];
+    }
+
+    {
+        //EXC_BAD_ACCESS
+        NSLog(@"before sigsegv");
+        int *a = NULL;
+        *a = 0;
+        NSLog(@"after sigsegv");
+    }    
     return YES;
 }
 

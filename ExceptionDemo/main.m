@@ -7,11 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
-#import "TryCatch.h"
 
 int main(int argc, char * argv[]) {
     NSString * appDelegateClassName;
-    [TryCatch test];
     @autoreleasepool {
         // Setup code that might create autoreleased objects goes here.
         appDelegateClassName = NSStringFromClass([AppDelegate class]);

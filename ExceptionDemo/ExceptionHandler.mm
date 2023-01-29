@@ -28,7 +28,8 @@ extern "C" kern_return_t  catch_mach_exception_raise_state(
         mach_msg_type_number_t old_stateCnt, thread_state_t new_state, mach_msg_type_number_t* new_stateCnt)
 {
     NSLog(@"In catch_mach_exception_raise_state");
-    return KERN_SUCCESS;
+    // return KERN_SUCCESS 将会恢复执行
+    return KERN_FAILURE;
 }
 
 extern "C" kern_return_t catch_mach_exception_raise_state_identity(
@@ -112,10 +113,10 @@ static void *exc_handler(void *ignored) {
     // 向端口插入发送权限
     mach_port_insert_right(mach_task_self(), myExceptionPort, myExceptionPort, MACH_MSG_TYPE_MAKE_SEND);
     // 设置 Mach 异常的种类
-    exception_mask_t excMask = EXC_MASK_BAD_ACCESS | EXC_MASK_BAD_INSTRUCTION | EXC_MASK_ARITHMETIC | EXC_MASK_SOFTWARE;
+    exception_mask_t excMask = EXC_MASK_CRASH | EXC_MASK_BAD_ACCESS | EXC_MASK_BAD_INSTRUCTION | EXC_MASK_ARITHMETIC | EXC_MASK_SOFTWARE;
     
     // 设置内核接收 Mach 异常消息的 thread Port
-    thread_set_exception_ports(mach_thread_self(), excMask, myExceptionPort, EXCEPTION_DEFAULT | MACH_EXCEPTION_CODES, THREAD_STATE_NONE);
+    task_set_exception_ports(mach_task_self(), EXC_MASK_ALL | EXC_MASK_CRASH, myExceptionPort, EXCEPTION_DEFAULT | MACH_EXCEPTION_CODES, THREAD_STATE_NONE);
     // 新建一个线程处理异常消息
     pthread_t thread;
     pthread_create(&thread, NULL, exc_handler, NULL);

@@ -40,7 +40,6 @@
 }
 
 + (void)testCatchAll {
-    
     @try {
         
         std::string str = "test";
